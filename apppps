@@ -1,5 +1,4 @@
 Intent whatsappIntent = new Intent(Intent.ACTION_SEND); whatsappIntent.setType("text/plain"); whatsappIntent.setPackage("com.whatsapp"); whatsappIntent.putExtra(Intent.EXTRA_TEXT, _text);
-whatsappIntent.putExtra (Intent.EXTRA_STREAM, Uri.parse(_file));
  try {
-startActivity(Intent.createChooser( whatsappIntent, "Share"));
+startActivity(Intent.createChooser( whatsappIntent, "مشاركة"));
  } catch (android.content.ActivityNotFoundException ex) { startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=com.whatsapp"))); }
