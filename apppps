@@ -1,4 +1,15 @@
-Intent whatsappIntent = new Intent(Intent.ACTION_SEND); whatsappIntent.setType("text/plain"); whatsappIntent.setPackage("com.whatsapp"); whatsappIntent.putExtra(Intent.EXTRA_TEXT, _text);
- try {
-startActivity(Intent.createChooser( whatsappIntent, "مشاركة"));
- } catch (android.content.ActivityNotFoundException ex) { startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=com.whatsapp"))); }
+Bitmap returnedBitmap = Bitmap.createBitmap(_view.getWidth(), _view.getHeight(),Bitmap.Config.ARGB_8888);
+Canvas canvas = new Canvas(returnedBitmap); android.graphics.drawable.Drawable bgDrawable =_view.getBackground();
+if (bgDrawable!=null) { bgDrawable.draw(canvas);
+ } else { canvas.drawColor(Color.WHITE);
+ } _view.draw(canvas);
+ java.io.File pictureFile = new java.io.File(Environment.getExternalStorageDirectory() + "/Pictures/صور جيرلي",timeanddate+".png");
+if (pictureFile == null) { showMessage("Error creating media file, check storage permissions: ");
+ return;
+ } try { java.io.FileOutputStream fos = new java.io.FileOutputStream(pictureFile);
+ returnedBitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+ fos.close();
+ showMessage(_pesan);
+ } catch (java.io.FileNotFoundException e) { showMessage("File not found: " + e.getMessage());
+ } catch (java.io.IOException e) { showMessage("Error accessing file: " + e.getMessage());
+ }
